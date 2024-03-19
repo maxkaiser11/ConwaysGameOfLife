@@ -1,6 +1,6 @@
 #include <iostream>
 #include <raylib.h>
-#include "Grid.hpp"
+#include "Simulation.hpp"
 
 int main()
 {
@@ -12,23 +12,43 @@ int main()
 
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Game of Life");
 	SetTargetFPS(FPS);
-
-	Grid grid{ WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE };
-	grid.SetValue(0, 0, 1);
-
-	grid.SetValue(2, 1, 1);
+	Simulation simulation{ WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE };
 
 	// Simulation Loop
 	while (!WindowShouldClose())
 	{
 		// 1. Event Handling
+		if (IsKeyPressed(KEY_ENTER))
+		{
+			simulation.Start();
+			SetWindowTitle("Game of Life is running...");
+		}
+		else if (IsKeyPressed(KEY_SPACE))
+		{
+			simulation.Stop();
+			SetWindowTitle("Game of Life has stopped!");
+		}
+		else if (IsKeyPressed(KEY_F))
+		{
+			FPS += 2;
+			SetTargetFPS(FPS);
+		}
+		else if (IsKeyPressed(KEY_S))
+		{
+			if (FPS > 5)
+			{
+				FPS -= 2;
+				SetTargetFPS(FPS);
+			}
+		}
 
 		// 2. Updating state
+		simulation.Update();
 
 		// 3.Drawing
 		BeginDrawing();
 		ClearBackground(GREY);
-		grid.Draw();
+		simulation.Draw();
 		EndDrawing();
 	}
 
