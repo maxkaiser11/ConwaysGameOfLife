@@ -41,6 +41,14 @@ int main()
 				SetTargetFPS(FPS);
 			}
 		}
+		else if (IsKeyPressed(KEY_R))
+		{
+			simulation.CreateRandomState();
+		}
+		else if (IsKeyPressed(KEY_C))
+		{
+			simulation.ClearGrid();
+		}
 
 		// 2. Updating state
 		simulation.Update();
