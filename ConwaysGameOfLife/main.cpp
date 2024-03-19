@@ -5,9 +5,9 @@
 int main()
 {
 	Color GREY = { 29, 29, 29, 255 };
-	const int WINDOW_WIDTH = 750;
-	const int WINDOW_HEIGHT = 750;
-	const int CELL_SIZE = 25;
+	const int WINDOW_WIDTH = 1200;
+	const int WINDOW_HEIGHT = 800;
+	const int CELL_SIZE = 4;
 	int FPS = 12;
 
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Game of Life");
@@ -18,6 +18,13 @@ int main()
 	while (!WindowShouldClose())
 	{
 		// 1. Event Handling
+		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+		{
+			Vector2 mousePosition = GetMousePosition();
+			int row = mousePosition.y / CELL_SIZE;
+			int column = mousePosition.x / CELL_SIZE;
+			simulation.ToggleCell(row, column);
+		}
 		if (IsKeyPressed(KEY_ENTER))
 		{
 			simulation.Start();
