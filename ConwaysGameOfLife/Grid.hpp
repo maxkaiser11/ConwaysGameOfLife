@@ -11,6 +11,8 @@ public:
 
 	void Draw();
 
+	void SetValue(int row, int column, int value);
+
 private:
 	int rows;
 	int columns;
